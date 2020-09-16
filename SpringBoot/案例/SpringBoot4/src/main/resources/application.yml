@@ -1,0 +1,18 @@
+acme:
+  enable: true
+  remote-address: 192.168.0.108
+  security:
+    username: zhangsan
+    password: 123
+    roles:
+      - aaa
+      - bbb
+  my-person:
+    person:
+      firstName: zhangsan
+      age: 30
+      email: aaaa@qq.com
+      user:
+        username: lisi
+#  list: {aaa,bbb,ccc}
+  list: aaa

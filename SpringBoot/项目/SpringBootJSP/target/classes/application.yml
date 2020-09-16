@@ -1,0 +1,17 @@
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  #  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/grade?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC
+    username: root
+    password: sw1111
+#  # SpringMVC配置
+
+# MyBatis配置
+mybatis:
+  mapper-locations: classpath:dao/*.xml
+  type-aliases-package: com.sw.entity

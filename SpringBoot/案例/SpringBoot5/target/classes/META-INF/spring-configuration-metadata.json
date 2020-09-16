@@ -1,0 +1,28 @@
+{
+  "groups": [
+    {
+      "name": "acme",
+      "type": "com.sw.entity.AcmeProperties",
+      "sourceType": "com.sw.entity.AcmeProperties"
+    },
+    {
+      "name": "acme.security",
+      "type": "com.sw.entity.AcmeProperties$Security",
+      "sourceType": "com.sw.entity.AcmeProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "acme.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.sw.entity.AcmeProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "acme.remote-address",
+      "type": "java.net.InetAddress",
+      "sourceType": "com.sw.entity.AcmeProperties"
+    }
+  ],
+  "hints": []
+}

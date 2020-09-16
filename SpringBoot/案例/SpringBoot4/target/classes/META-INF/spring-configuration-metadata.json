@@ -1,0 +1,71 @@
+{
+  "groups": [
+    {
+      "name": "acme",
+      "type": "com.sw.entity.AcmeProperties",
+      "sourceType": "com.sw.entity.AcmeProperties"
+    },
+    {
+      "name": "acme.my-person.person",
+      "type": "com.sw.entity.OwnerProperties",
+      "sourceType": "com.sw.entity.OwnerProperties"
+    },
+    {
+      "name": "acme.security",
+      "type": "com.sw.entity.AcmeProperties$Security",
+      "sourceType": "com.sw.entity.AcmeProperties",
+      "sourceMethod": "getSecurity()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "acme.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.sw.entity.AcmeProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "acme.my-person.person.age",
+      "type": "java.lang.Integer",
+      "sourceType": "com.sw.entity.OwnerProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "acme.my-person.person.email",
+      "type": "java.lang.String",
+      "sourceType": "com.sw.entity.OwnerProperties"
+    },
+    {
+      "name": "acme.my-person.person.first-name",
+      "type": "java.lang.String",
+      "sourceType": "com.sw.entity.OwnerProperties"
+    },
+    {
+      "name": "acme.my-person.person.user",
+      "type": "com.sw.entity.User",
+      "sourceType": "com.sw.entity.OwnerProperties"
+    },
+    {
+      "name": "acme.remote-address",
+      "type": "java.net.InetAddress",
+      "sourceType": "com.sw.entity.AcmeProperties"
+    },
+    {
+      "name": "acme.security.password",
+      "type": "java.lang.String",
+      "sourceType": "com.sw.entity.AcmeProperties$Security"
+    },
+    {
+      "name": "acme.security.roles",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.sw.entity.AcmeProperties$Security",
+      "defaultValue": "USER"
+    },
+    {
+      "name": "acme.security.username",
+      "type": "java.lang.String",
+      "sourceType": "com.sw.entity.AcmeProperties$Security"
+    }
+  ],
+  "hints": []
+}

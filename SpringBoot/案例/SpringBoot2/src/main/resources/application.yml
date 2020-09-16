@@ -1,0 +1,15 @@
+yaml:
+  level:
+    star: 字符串不用加双引号\n
+    SpecialStr: "加双引号\n不被转义"
+    num: 123
+    Dnum: 123.45
+    birth: 2020/01/01  12:01:01
+    list:
+      - one
+      - two
+    set: [1,2,3,1]
+    map: {k1: v1,k2: v2}
+    user:
+      name: zhangsan
+      age: 18

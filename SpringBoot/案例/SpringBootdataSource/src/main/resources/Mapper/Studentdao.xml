@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sw.dao.StudentDao">
+    <select id="findAll" resultType="Student">
+        select * from student;
+    </select>
+
+    <select id="findById" resultType="Student">
+        select * from student where s_id=#{s_id};
+    </select>
+
+    <insert id="insert" parameterType="Student">
+        insert into student values (#{s_id},#{s_name},#{s_sex},#{s_age});
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        delete from student where s_id=#{s_id};
+    </delete>
+</mapper>

@@ -1,0 +1,26 @@
+acme:
+  enabled: true
+  remoteAddress: 192.168.0.108
+  spring:
+    profiles: test
+spring:
+  profiles:
+    active: dev
+#    # 可以选择性的激活环境，可以写在配置文件中，但是不推荐在配置文件里写
+#      一般在命令行里设置
+---
+acme:
+  enabled: true
+  remoteAddress: 192.168.0.109
+spring:
+  profiles: dev
+---
+acme:
+  enabled: true
+  remoteAddress: 192.168.0.110
+spring:
+  profiles: pro
+
+#spring:
+#  profiles:
+#    active: dev
