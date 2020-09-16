@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 配置springdeIoc，把service对象配置进来 -->
+    <bean id="accountService" class="com.sw.service.impl.AccountServiceImpl"></bean>
+
+    <!-- 配置Logger类 -->
+    <bean id="logger" class="com.sw.utils.Logger"></bean>
+
+    <!-- 配置AOP -->
+    <aop:config>
+
+        <aop:pointcut id="pt1" expression="execution(* com.sw.service.impl.*.*(..))"/>
+
+        <!-- 配置切面 -->
+        <aop:aspect id="logAdvice" ref="logger">
+<!--             每个都需要配置一次切入点方法，比较麻烦 -->
+<!--            &lt;!&ndash; 配置前置通知：在切入点方法执行之前执行&ndash;&gt;-->
+<!--            <aop:before method="beforePrintLog" pointcut="execution(* com.sw.service.impl.*.*(..))"></aop:before>-->
+
+<!--            &lt;!&ndash; 配置后置通知：在切入点方法正常执行之后执行 &ndash;&gt;-->
+<!--            <aop:after-returning method="aferReturningPrintLog" pointcut="execution(* com.sw.service.impl.*.*(..))"></aop:after-returning>-->
+
+<!--            &lt;!&ndash; 配置异常通知：在切入点方法执行产生异常之后执行 &ndash;&gt;-->
+<!--            <aop:after-throwing method="afterThrowingPrintLog" pointcut="execution(* com.sw.service.impl.*.*(..))"></aop:after-throwing>-->
+
+<!--            &lt;!&ndash; 配置最后通知：无论切入点方阿飞是否正常执行都会在后面执行 &ndash;&gt;-->
+<!--            <aop:after method="afterPrintLog" pointcut="execution(* com.sw.service.impl.*.*(..))"></aop:after>-->
+
+
+<!--            &lt;!&ndash; 配置切入点表达式 id属性用于指定表达式的唯一标识，expression属性用于指定表达式内容-->
+<!--                    该标签写在aspect标签的内部就只能当前标签能够使用-->
+<!--                    而写在外面就可以让所有切面可用(但是必须写在切面标签的最前面，否则报错)-->
+<!--             &ndash;&gt;-->
+<!--            <aop:pointcut id="pt1" expression="execution(* com.sw.service.impl.*.*(..))"/>-->
+<!--            -->
+<!--            &lt;!&ndash; 配置前置通知：在切入点方法执行之前执行&ndash;&gt;-->
+<!--            <aop:before method="beforePrintLog" pointcut-ref="pt1"></aop:before>-->
+
+<!--            &lt;!&ndash; 配置后置通知：在切入点方法正常执行之后执行 &ndash;&gt;-->
+<!--            <aop:after-returning method="aferReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>-->
+
+<!--            &lt;!&ndash; 配置异常通知：在切入点方法执行产生异常之后执行 &ndash;&gt;-->
+<!--            <aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt1"></aop:after-throwing>-->
+
+<!--            &lt;!&ndash; 配置最后通知：无论切入点方法是否正常执行都会在后面执行 &ndash;&gt;-->
+<!--            <aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>-->
+
+            <!-- 配置环绕通知，需要将上面的配置注释掉 -->
+            <aop:around method="aroundPringLog" pointcut-ref="pt1"></aop:around>
+        </aop:aspect>
+    </aop:config>
+</beans>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sw.dao.StudentDao">
+
+    <cache></cache>
+
+    <select id="findAll" resultType="student">
+        select * from student;
+    </select>
+    <select id="findById" parameterType="java.lang.String" resultType="student">
+        select * from student where s_id = #{s_id};
+    </select>
+    <select id="findIdAll" resultType="String">
+        select s_id from student;
+    </select>
+    <select id="NameById" parameterType="java.lang.String" resultType="java.lang.String">
+        select s_name from student where s_id = #{s_id};
+    </select>
+    <select id="findByName" parameterType="java.lang.String" resultType="student">
+        select * from student where s_name = #{s_name};
+    </select>
+    <select id="countBy" resultType="int">
+        select count(s_id) from student;
+    </select>
+    <insert id="insertStudent" parameterType="student">
+        insert into student values(#{s_id},#{s_name},#{s_sex},#{s_age});
+    </insert>
+    <update id="updateStudent" parameterType="student">
+        update student
+        <set>
+            <if test="s_name!=null">
+                s_name=#{s_name},
+            </if>
+            <if test="s_sex!=null">
+                s_sex=#{s_sex},
+            </if>
+            <if test="s_age!=null">
+                s_age=#{s_age},
+            </if>
+        </set>
+        where s_id=#{s_id};
+    </update>
+    <delete id="deleteStudent" parameterType="java.lang.String">
+        delete from student where s_id=#{s_id};
+    </delete>
+</mapper>

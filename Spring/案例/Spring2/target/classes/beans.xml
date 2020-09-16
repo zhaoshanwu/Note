@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 把对象的创建交给spring来管理-->
+    <!-- spring对bean的管理细节
+            1、创建bean的三种方式
+            2、bean对象的作用范围
+            3、bena对象的生命周期
+     -->
+    <!-- 创建Bean的三种方式-->
+    <!-- 第一种方式：使用默认构造函数创建
+            在spring的配置文件中使用bean标签，配以id和class属性之后，且没有其他属性和标签时，
+            采用的就是默认构造函数创建bean对象，此时如果类中没有默认构造函数，那么对象就无法创建
+            <bean id="accountService" class="com.sw.service.impl.AccountServiceImpl"></bean>
+     -->
+
+    <!-- 第二种方式：使用普通工厂中的方法创建对象(使用某个类中的方法创建对象，并存入spring容器)
+        <bean id="instanceFactory" class="com.sw.factory.InstanceFactory"></bean>
+        <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"></bean>
+        factory-bean：指定用哪个工厂类
+        factory-method：指定用该工厂类的哪个方法
+    -->
+
+    <!-- 第三种方式：使用工厂中的静态方法创建对象(使用某个类中的静态方法创建对象，并存入spring容器)
+        <bean id="accountService" class="com.sw.factory.StaticFactory" factory-method="getAccountService"></bean>
+    -->
+
+    <!-- bean的作用范围调整
+        bean标签的scope属性：
+            作用：用于指定bean的作用范围
+            取值：singleton:单例(默认)
+                 prototype：多例
+                 request：作用于web应用的请求范围
+                 session：作用于web应用的会话范围
+                 global-session：作用于集群环境的会话范围，如果不是集群环境，那它就是session
+    -->
+
+    <!-- bean对象的生命周期
+            单例对象
+                出生：当容器创建时
+                活着：容器在对象就在
+                死亡：容器销毁，对象小王
+                生命周期与容器相同
+                    <bean id="accountService"
+                          class="com.sw.service.impl.AccountServiceImpl"
+                          scope="singleton"
+                          init-method="init"
+                          destroy-method="destroy"
+                    ></bean>
+            多例对象
+                出生：当使用对象时
+                活着：对象只要在使用就在
+                死亡：对象长时间不用，且没有别的对象引用时，由java的垃圾回收器回收
+    -->
+    <bean id="accountService"
+          class="com.sw.service.impl.AccountServiceImpl"
+          scope="prototype"
+          init-method="init"
+          destroy-method="destroy"
+    ></bean>
+
+    <bean id="accountDao" class="com.sw.dao.impl.AccountDaoImpl"></bean>
+</beans>
