@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>son</artifactId>
+  <packaging>jar</packaging>
+
+  <name>son</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+	<!-- 配置父工程 -->
+	<parent>
+		  <groupId>com.sw</groupId>
+		  <artifactId>parent</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		  <!-- 从当前工程出发查找父工程的pom.xml文件 -->
+		  <relativePath>../parent/pom.xml</relativePath>
+	</parent>
+	
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+    </dependency>
+  </dependencies>
+</project>
