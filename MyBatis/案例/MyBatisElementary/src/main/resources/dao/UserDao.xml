@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sw.dao.UserDao">
+    <resultMap id="userMap" type="com.sw.entity.User">
+        <!-- 主键字段的对应 -->
+        <id property="id" column="id"></id>
+        <!-- 非主键字段的对应 -->
+        <result property="username" column="username"></result>
+        <result property="address" column="address"></result>
+        <result property="sex" column="sex"></result>
+        <result property="birthday" column="birthday"></result>
+    </resultMap>
+
+    <!-- 配置查询所有 -->
+    <select id="findAll" resultType="user">
+        select * from user
+    </select>
+
+    <insert id="saveUser" parameterType="com.sw.entity.User">
+        <!-- 配置插入操作后，获取插入数据的id -->
+        <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into user(username,address,sex,birthday)
+        value(#{username},#{address},#{sex},#{birthday});
+    </insert>
+
+    <update id="updateUser" parameterType="com.sw.entity.User">
+        update user
+        set username=#{username},address=#{address},sex=#{sex},birthday=#{birthday}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where id=#{id}
+    </delete>
+
+    <select id="findById" parameterType="int" resultType="com.sw.entity.User">
+        select * from user where id=#{id}
+    </select>
+
+    <select id="findByName" parameterType="String" resultType="com.sw.entity.User">
+        select * from user where user like=#{name}
+    </select>
+
+    <select id="findTotal" resultType="int">
+        select count(id) from user
+    </select>
+
+<!--    &lt;!&ndash; 根据queryVo的条件查询用户 &ndash;&gt;-->
+<!--    <select id="findUserByVo" parameterType="com.sw.entity.QueryVo" resultType="com.sw.entity.User">-->
+<!--        select * from user where username like #{user.username}-->
+<!--    </select>-->
+</mapper>

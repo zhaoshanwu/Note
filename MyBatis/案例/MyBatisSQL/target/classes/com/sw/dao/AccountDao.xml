@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sw.dao.AccountDao">
+    <resultMap type="account" id="accountUserMap">
+        <id column="aid" property="id"/>
+        <id column="uid" property="uid"/>
+        <result column="money" property="money"/>
+        <collection property="user" ofType="user">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="birthday" property="birthday"/>
+            <result column="sex" property="sex"/>
+            <result column="address" property="address"/>
+        </collection>
+    </resultMap>
+    <!-- 配置查询所有 -->
+    <select id="findAll" resultMap="accountUserMap">
+        select a.id as aid,a.money as money,a.uid as uid,u.id as id,u.username as username,u.birthday as birthday,u.sex as sex,u.address as address
+        from account a,user u
+        where u.id=a.uid;
+    </select>
+
+    <select id="findAllAccount" resultType="accountuser">
+        select a.*,u.username,u.address from account a,user u where u.id=a.uid;
+    </select>
+</mapper>

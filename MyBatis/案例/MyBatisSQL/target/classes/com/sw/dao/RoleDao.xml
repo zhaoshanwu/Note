@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sw.dao.RoleDao">
+    <resultMap id="roleMap" type="role">
+        <id property="id" column="rid"/>
+        <result property="rolename" column="rolename"/>
+        <result property="roledesc" column="roledesc"/>
+        <collection property="students" ofType="student">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="birthday" column="birthday"/>
+            <result property="sex" column="sex"/>
+            <result property="address" column="address"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="roleMap">
+        select s.*,r.id as rid,r.rolename,r.roledesc
+        from role r
+        left outer join student_role sr on r.id=sr.rid
+        left outer join student s on s.id=sr.sid
+    </select>
+</mapper>
