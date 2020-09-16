@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    <div></div>
+    <span></span>
+    <script>
+        $(function() {
+            function $(ele) {
+                return document.querySelector(ele);
+            }
+            console.log($("div"));
+            // $.each([52, 97], function(index, value) {
+            //     alert(index + ': ' + value);
+            // });  // 这样就会报错，因为上面的方法用了$，jQuery也用$
+
+            // 1、将$改成jQuery
+            jQuery.each([52, 97], function(index, value) {
+                console.log(index + ': ' + value);
+            });
+
+            // 2、规定新名称
+            var xxx = jQuery.noConflict();
+            xxx("span");
+            console.log(xxx("span"));
+        })
+    </script>
+</body>
+</html>

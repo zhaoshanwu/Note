@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+        .current {
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <ul>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+    </ul>
+    <ol></ol>
+    <script>
+        $(function() {
+            // 1、单个事件注册
+            // $("div").click(function() {
+            //     $(this).css("background","purple");
+            // });
+            // $("div").mouseenter(function() {
+            //     $(this).css("background","skyblue");
+            // });
+
+            // 2、事件处理  on()
+            // （1）可以绑定多个事件
+            // $("div").on({
+            //     mouseenter: function() {
+            //         $(this).css("background","purple");
+            //     },
+            //     click: function() {
+            //         $(this).css("background","skyblue");
+            //     },
+            //     mouseleave: function() {
+            //         $(this).css("background","blue");
+            //     }
+            // });
+            $("div").on("mouseenter mouseleave",function() {
+                $(this).toggleClass("current");
+            });
+
+            // （2）可以实现事件委托
+            // $("ul li").click();
+            $("ul").on("click","li",function() {
+                alert(11);
+            })
+            // click 是绑定在ul上，但是触发的是ul里的li
+
+            // （3）可以给未来动态创建的元素绑定事件
+            // $("ol li").click(function() {
+            //     alert(11);
+            // });
+            // var li = $("<li>后创建的li</li>");
+            // $("ol").append(li);
+            // 用普通的注册事件无法对后来创建的li起作用
+
+            $("ol").on("click","li",function() {
+                alert(11);
+            })
+            var li = $("<li>后创建的li</li>");
+            $("ol").append(li);
+        })
+    </script>
+</body>
+</html>

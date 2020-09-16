@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    
+    <script>
+        $(function() {
+            var targetObj = {};
+            var obj = {
+                id: 1,
+                name: "andy"
+            }
+            $.extend(targetObj,obj);
+            console.log(targetObj);
+            
+            // 如果目标拷贝对象已经有值了呢
+            var targetObj2 = {
+                id: 0
+            };
+            var obj2 = {
+                id: 1,
+                name: "andy"
+            }
+            $.extend(targetObj2,obj2);
+            console.log(targetObj2); //覆盖原来的数据
+
+            console.log("-----------------");
+
+            var targetObj3 = {
+                id: 0,
+                msg: {
+                    sex: "男"
+                },
+                name: {
+                    name1: "andy"
+                }
+            };
+            var obj3 = {
+                id: 1,
+                name: "andy",
+                msg: {
+                    age: 18
+                }
+            }
+            $.extend(targetObj3,obj3);
+            console.log(targetObj3);
+            // 浅拷贝:是把原来对象里面的复杂数据类型地址拷贝给目标对象
+            console.log("---浅拷贝--------");
+            targetObj3.msg.age = 20;
+            console.log(targetObj3);
+            console.log(obj3);
+            // 深拷贝:完全克隆
+            var targetObj4 = {
+                id: 0,
+                msg: {
+                    sex: "男"
+                },
+                name: {
+                    name1: "andy"
+                }
+            };
+            var obj4 = {
+                id: 1,
+                name: "andy",
+                msg: {
+                    age: 18
+                }
+            }
+            console.log("---深拷贝--------");
+            $.extend(true,targetObj4,obj4);
+            targetObj4.msg.age = 20;
+            console.log(targetObj4);
+            console.log(obj4);
+
+        })
+    </script>
+</body>
+</html>

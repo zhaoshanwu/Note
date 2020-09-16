@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap文件 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Document</title>
+    <link rel="stylesheet" href="gather-css/gather.css">
+    <script src="gather-js/gather.js"></script>
+    <!-- jQuery文件 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        var idreg = /^\d{3}$/; // 学号课程号规范的正则表达式
+        var namereg = /^[\u4e00-\u9fa5]{2,6}$/;  // 姓名规范的正则表达式
+        var agereg = /^\d{1,2}$/;  // 年龄规范的正则表达式
+        var gradereg1 = /^(0|\d{1,2}|100)$/; // 添加成绩规范的正则表达式
+        var gradereg2 = /^(-1|0|\d{1,2}|100)$/;  // 维护成绩规范的正则表达式
+        // ajax函数
+        function findAll() {
+            $.ajax({
+                type: "GET",
+                url: "student/findAll",
+                dataType: "json",
+                success: function(data) {
+                    $("#findAll tr:gt(0)").remove();
+                    var students = data.students;
+                    for(var i=0;i < data.students.length;i++) {
+                        var tr = $("<tr>" +
+                                    "<td>" + students[i].s_id + "</td>" +
+                                    "<td>" + students[i].s_name + "</td>" +
+                                    "<td>" + students[i].s_sex + "</td>" +
+                                    "<td>" + students[i].s_age + "</td>" +
+                                    "<td>" + "<a href=\"student/delete/"+students[i].s_id+"\">删除</a>" + "</td>" +
+                                    "</tr>");
+                        $("#findAll").append(tr);
+                    }
+                },
+                error: function () {
+                    console.log("error");
+                }
+            })
+        }
+        function　Detele(s_id) {
+            $.ajax({
+                type: "GET",
+                url: "student/delete",
+                data: {
+                    "s_id": s_id
+                },
+                success: function(data) {
+                    console.log("删除成功");
+                },
+                error: function () {
+                    console.log("error");
+                }
+            })
+        }
+        function findById() {
+            var s_id = $("#findByIdSid").val();
+            if(idreg.test(s_id)) {
+                $.ajax({
+                    type: "GET",
+                    url: "student/findById",
+                    data: {
+                        "s_id": s_id
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        $("#findById tr:gt(0)").remove();
+                        $("#findByIdError").text("");
+                        var student = data.student;
+                        if(student != null) {
+                            var tr = $("<tr>" +
+                                "<td>" + student.s_id + "</td>" +
+                                "<td>" + student.s_name + "</td>" +
+                                "<td>" + student.s_sex + "</td>" +
+                                "<td>" + student.s_age + "</td>" +
+                                "</tr>");
+                            $("#findById").append(tr);
+                        } else {
+                            $("#findByIdError").text("查询不到该学号对应的学生信息");
+                        }
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            } else {
+                alert("学号输入有误");
+            }
+        }
+        function findGrade() {
+            var s_id = $("#findGradeSid").val();
+            if(idreg.test(s_id)) {
+                $.ajax({
+                    type: "GET",
+                    url: "sc/findGrade",
+                    data: {
+                        "s_id": s_id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#findGrade tr:gt(0)").remove();
+                        $("#findGradeError").text("");
+                        var s_name = data.s_name;
+                        var c_id = data.c_id;
+                        var c_name = data.c_name;
+                        var grade = data.grade;
+                        if (s_name != null && c_id != null && c_name != null && grade != null) {
+                            for (var i = 0; i < 4; i++) {
+                                var tr = $("<tr>" +
+                                    "<td>" + s_name + "</td>" +
+                                    "<td>" + c_id[i] + "</td>" +
+                                    "<td>" + c_name[i] + "</td>" +
+                                    "<td>" + grade[i] + "</td>" +
+                                    "</tr>");
+                                $("#findGrade").append(tr);
+                            }
+
+                        } else {
+                            $("#findGradeError").text("查询不到该学号对应的学生成绩信息");
+                        }
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            } else {
+                alert("学号输入有误");
+            }
+        }
+        function findMaxMin() {
+            var c_id = $("#findMaxMinCid").val();
+            if(idreg.test(c_id)) {
+                $.ajax({
+                    type: "GET",
+                    url: "sc/findMaxMin",
+                    data: {
+                        "c_id": c_id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#findMaxMin tr:gt(0)").remove();
+                        $("#findMaxMinError").text("");
+                        var c_name = data.c_name;
+                        var max = data.max;
+                        var min = data.min;
+                        var average = data.average;
+                        if (c_name != null && max != null && min != null && average != null) {
+                            var tr = $("<tr>" +
+                                "<td>" + c_name + "</td>" +
+                                "<td>" + max + "</td>" +
+                                "<td>" + min + "</td>" +
+                                "<td>" + average + "</td>" +
+                                "</tr>");
+                            $("#findMaxMin").append(tr);
+                        } else {
+                            $("#findMaxMinError").text("查询不到该课程号对应的课程成绩信息");
+                        }
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            } else {
+                alert("课程号输入有误");
+            }
+        }
+        function findRanking() {
+            var s_id = $("#findRankingSid").val();
+            if(idreg.test(s_id)) {
+                $.ajax({
+                    type: "GET",
+                    url: "sc/findRanking",
+                    data: {
+                        "s_id": s_id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#findRanking").empty(); //移除该元素的所有子节点
+                        var max = data.max;
+                        var min = data.min;
+                        var maxC_name = data.maxC_name;
+                        var minC_name = data.minC_name;
+                        if (max != null && min != null && maxC_name != null && minC_name != null) {
+                            var maxp = $("<p>" + "该学生的最好成绩排名为：" + maxC_name + " : " + max + "</p>");
+                            var minp = $("<p>" + "该学生的最差成绩排名为：" + minC_name + " : " + min + "</p>");
+                            $("#findRanking").append(maxp);
+                            $("#findRanking").append(minp);
+                        } else {
+                            var p = $("<p>" + "查询不到该学号对应的学生成绩信息" + "</p>");
+                            $("#findRanking").append(p);
+                        }
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            } else {
+                alert("学号输入有误");
+            }
+        }
+        function findMinus() {
+            var s_id = $("#findMinusSid").val();
+            var c_id = $("#findMinusCid").val();
+            if(idreg.test(s_id) && idreg.test(c_id)) {
+                $.ajax({
+                    type: "GET",
+                    url: "sc/findMinus",
+                    data: {
+                        "s_id": s_id,
+                        "c_id": c_id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#findMinus").empty();
+                        var minus = data.minus;
+                        var c_name = data.c_name;
+                        if (minus != null) {
+                            var p1 = $("<p>" + "该学生" + c_name + "课程的成绩与平均分的差值为： " + minus + "</p>");
+                            $("#findMinus").append(p1);
+                        } else {
+                            var p2 = $("<p>" + "查询不到该学号或课程号对应的成绩信息" + "</p>");
+                            $("#findMinus").append(p2);
+                        }
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            } else {
+                alert("学号和课程号输入有误");
+            }
+        }
+        function InsertStudent() {
+            var s_id = $("#InsertSid").val();
+            var s_name = $("#InsertSname").val();
+            var s_sex = $('input[name="InsertSex"]:checked').val();
+            var s_age = $("#InsertSage").val();
+            if(idreg.test(s_id) && namereg.test(s_name) && agereg.test(s_age)) {
+                $.ajax({
+                    type: "GET",
+                    url: "student/InsertStudent",
+                    data: {
+                        "s_id": s_id,
+                        "s_name": s_name,
+                        "s_sex": s_sex,
+                        "s_age": s_age
+                    },
+                    success: function (data) {
+
+                        console.log("添加成功");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            } else {
+                alert("输入信息有误");
+            }
+        }
+        function InsertGrade() {
+            var s_id = $("#InsertGradeSid").val();
+            var java = $("#InsertGradeJava").val();
+            var c2 = $("#InsertGradeC2").val();
+            var c = $("#InsertGradeC").val();
+            var python = $("#InsertGradePython").val();
+            if(idreg.test(s_id) && gradereg1.test(java) && gradereg1.test(c2) && gradereg1.test(c) && gradereg1.test(python)) {
+                $.ajax({
+                    type: "GET",
+                    url: "sc/InsertGrade",
+                    data: {
+                        "s_id": s_id,
+                        "s_name": "王五",
+                        "s_sex": "男",
+                        "s_age": 18,
+                        "java": java,
+                        "c2": c2,
+                        "c": c,
+                        "python": python
+                    },
+                    success: function (data) {
+                        console.log("添加成功");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            } else {
+                alert("输入信息有误");
+            }
+        }
+        function UpdateGrade() {
+            var s_id = $("#UpdateGradeSid").val();
+            var java = $("#UpdateGradeJava").val();
+            var c2 = $("#UpdateGradeC2").val();
+            var c = $("#UpdateGradeC").val();
+            var python = $("#UpdateGradePython").val();
+            if(idreg.test(s_id) && gradereg2.test(java) && gradereg2.test(c2) && gradereg2.test(c) && gradereg2.test(python)) {
+                $.ajax({
+                    type: "GET",
+                    url: "sc/UpdateGrade",
+                    data: {
+                        "s_id": s_id,
+                        "java": java,
+                        "c2": c2,
+                        "c": c,
+                        "python": python
+                    },
+                    success: function (data) {
+                        console.log("更新成功");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            } else {
+                alert("输入信息有误");
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container box">
+    <div class="row">
+        <div class="function col-md-2">
+            <ul class="nav nav-pills nav-tabs option">
+                <li class="label nav-item active"><a href="#tab1" data-toggle="tab">全体学生信息</a></li>
+                <li class="label nav-item"><a href="#tab2" data-toggle="tab">指定学生信息</a></li>
+                <li class="label nav-item"><a href="#tab3" data-toggle="tab">学生成绩信息</a></li>
+                <li class="label nav-item"><a href="#tab4" data-toggle="tab">课程成绩信息</a></li>
+                <li class="label nav-item"><a href="#tab5" data-toggle="tab">成绩排名信息</a></li>
+                <li class="label nav-item"><a href="#tab6" data-toggle="tab">成绩差值信息</a></li>
+                <li class="label nav-item"><a href="#tab7" data-toggle="tab">学生信息录入</a></li>
+                <li class="label nav-item"><a href="#tab8" data-toggle="tab">学生成绩录入</a></li>
+                <li class="label nav-item"><a href="#tab9" data-toggle="tab">学生成绩维护</a></li>
+            </ul>
+        </div>
+        <div class="content tab-content  col-md-10">
+            <div id="tab1" class="page tab-pane active">
+                <div class="operation">
+                    <div class="theme col-md-3">
+                        查询全体学生信息
+                    </div>
+                    <div class="select col-md-5">
+                        <button type="button" class="btn btn-default" onclick="findAll()">查询</button>
+                    </div>
+                </div>
+                <div class="show">
+                    <table class="table table-bordered box" id="findAll">
+                        <tr>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>年龄</th>
+                            <th>操作</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="tab2" class="page tab-pane">
+                <div class="operation">
+                    <div class="theme col-md-3">
+                        查询指定学生信息
+                    </div>
+                    <div class="select col-md-9">
+                        <form id="form1" class="form-inline">
+                            <div class="form-group">
+                                <label>学号:</label>
+                                <input type="text" class="form-control s_id" placeholder="学号" id="findByIdSid">
+                            </div>
+                            <button type="button" class="btn btn-default" onclick="findById()">查询</button>
+                            <p class="s_idp"></p>
+                        </form>
+                    </div>
+                </div>
+                <div class="show">
+                    <table class="table table-bordered box" id="findById">
+                        <tr>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>年龄</th>
+                        </tr>
+                    </table>
+                    <p id="findByIdError"></p>
+                </div>
+            </div>
+            <div id="tab3" class="page tab-pane">
+                <div class="operation">
+                    <div class="theme col-md-3">
+                        查询学生成绩
+                    </div>
+                    <div class="select col-md-9">
+                        <form id="form2" class="form-inline">
+                            <div class="form-group">
+                                <label>学号:</label>
+                                <input type="text" class="form-control s_id" placeholder="学号" id="findGradeSid">
+                            </div>
+                            <button type="button" class="btn btn-default" onclick="findGrade()">查询</button>
+                            <p class="s_idp"></p>
+                        </form>
+                    </div>
+                </div>
+                <div class="show">
+                    <table class="table table-bordered box" id="findGrade">
+                        <tr>
+                            <th>姓名</th>
+                            <th>课程号</th>
+                            <th>课程名</th>
+                            <th>成绩</th>
+                        </tr>
+                    </table>
+                    <p id="findGradeError"></p>
+                </div>
+            </div>
+            <div id="tab4" class="page tab-pane">
+                <div class="operation">
+                    <div class="theme col-md-3">
+                        查询课程成绩
+                    </div>
+                    <div class="select col-md-9">
+                        <form id="form3" class="form-inline">
+                            <div class="form-group">
+                                <label>课程号:</label>
+                                <input type="text" class="form-control c_id" placeholder="课程号" id="findMaxMinCid">
+                            </div>
+                            <button type="button" class="btn btn-default" onclick="findMaxMin()">查询</button>
+                            <p class="c_idp"></p>
+                        </form>
+                    </div>
+                </div>
+                <div class="show">
+                    <table class="table table-bordered box" id="findMaxMin">
+                        <tr>
+                            <th>课程</th>
+                            <th>最高分</th>
+                            <th>最低分</th>
+                            <th>平均分</th>
+                        </tr>
+                    </table>
+                    <p id="findMaxMinError"></p>
+                </div>
+            </div>
+            <div id="tab5" class="page tab-pane">
+                <div class="operation">
+                    <div class="theme col-md-3">
+                        查询学生最好最差排名
+                    </div>
+                    <div class="select col-md-9">
+                        <form id="form4" class="form-inline">
+                            <div class="form-group">
+                                <label>学号:</label>
+                                <input type="text" class="form-control s_id" placeholder="学号" name="s_id" id="findRankingSid">
+                            </div>
+                            <button type="button" class="btn btn-default" onclick="findRanking()">查询</button>
+                            <p class="s_idp"></p>
+                        </form>
+                    </div>
+                </div>
+                <div class="show" id="findRanking">
+
+                </div>
+            </div>
+            <div id="tab6" class="page tab-pane">
+                <div class="operation">
+                    <div class="theme">
+                        <p>查询指定学生指定课程的成绩与平均分的差值</p>
+                    </div>
+                    <div class="select">
+                        <form id="form5" class="form-inline">
+                            <div class="form-group">
+                                <label>学 &nbsp; &nbsp;号</label>
+                                <input type="text" class="form-control s_id" placeholder="学号" name="s_id" id="findMinusSid">
+                            </div>
+                            <span class="s_idp"></span>
+                            <br/>
+                            <div class="form-group">
+                                <label>课程号</label>
+                                <input type="text" class="form-control c_id" placeholder="课程号" name="c_id" id="findMinusCid">
+                            </div>
+                            <span class="c_idp"></span>
+                            <br/>
+                            <input type="hidden" value="5" name="active">
+                            <div class="form-group">
+                                <div class="col-sm-offset-2">
+                                    <button type="button" class="btn btn-default" onclick="findMinus()">查询</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="show" id="findMinus">
+
+                </div>
+            </div>
+            <div id="tab7" class="page tab-pane">
+                <div class="operation">
+                    <p>学生信息录入</p>
+                </div>
+                <div class="show">
+                    <form id="form6" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学号</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control s_id" placeholder="学号" id="InsertSid">
+                            </div>
+                            <span class="col-sm-5 s_idp"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control s_name" placeholder="姓名" id="InsertSname">
+                            </div>
+                            <span class="col-sm-5 s_namep"></span>
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-sm-2 control-label">性别</label>
+                            <div class="radio col-sm-1">
+                                <label>
+                                    <input type="radio" name="InsertSex" value="男" checked>男
+                                </label>
+                            </div>
+                            <div class="radio col-sm-1">
+                                <label>
+                                    <input type="radio" name="InsertSex" value="女">女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">年龄</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control s_age" placeholder="年龄" id="InsertSage">
+                            </div>
+                            <span class="col-sm-5 s_agep"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" class="btn btn-default" onclick="InsertStudent()">添加</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="tab8" class="page tab-pane">
+                <div class="operation">
+                    <p>学生成绩录入</p>
+                </div>
+                <div class="show">
+                    <form id="form8" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学号</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control s_id" placeholder="学号" id="InsertGradeSid">
+                            </div>
+                            <span class="col-sm-5 s_idp"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">java：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control grade" placeholder="java成绩" id="InsertGradeJava">
+                            </div>
+                            <span class="col-sm-5 gradep"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">c++：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control grade" placeholder="c++成绩" id="InsertGradeC2">
+                            </div>
+                            <span class="col-sm-5 gradep"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">c语言：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control grade" placeholder="c语言成绩" id="InsertGradeC">
+                            </div>
+                            <span class="col-sm-5 gradep"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">python：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control grade" placeholder="python成绩" id="InsertGradePython">
+                            </div>
+                            <span class="col-sm-5 gradep"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" class="btn btn-default" onclick="InsertGrade()">录入</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="tab9" class="page tab-pane">
+                <div class="operation">
+                    <p>学生成绩维护</p>
+                </div>
+                <div class="show">
+                    <form id="form9" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学号</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control s_id" placeholder="学号" id="UpdateGradeSid">
+                            </div>
+                            <span class="col-sm-5 s_idp"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">java：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control grade" placeholder="java成绩" id="UpdateGradeJava" value="-1">
+                            </div>
+                            <span class="col-sm-5 gradep"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">c++：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control grade" placeholder="c++成绩" id="UpdateGradeC2" value="-1">
+                            </div>
+                            <span class="col-sm-5 gradep"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">c语言：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control grade" placeholder="c语言成绩" id="UpdateGradeC" value="-1">
+                            </div>
+                            <span class="col-sm-5 gradep"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">python：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control grade" placeholder="python成绩" id="UpdateGradePython" value="-1">
+                            </div>
+                            <span class="col-sm-5 gradep"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" class="btn btn-default" onclick="UpdateGrade()">更改</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

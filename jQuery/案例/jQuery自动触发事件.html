@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <input type="text">
+    <script>
+        $(function() {
+            $("div").on("click",function() {
+                alert(11);
+            })
+            // 自动触发事件
+            // 1、element.事件() 
+            // $("div").click();
+            // 2、element.trigger("事件")
+            // $("div").trigger("click");
+            // 3、element.triggerHandler("事件")
+            // 第三种和第二种的区别：第三种不会触发元素的默认行为
+            $("div").triggerHandler("click");
+            // 比如文本框被点击就会有光标闪烁，这就是一个默认行为
+            $("input").on("focus",function() {
+                $(this).val("你好");
+            });
+            // $("input").triggerHandler("focus");  // 不会有光标闪烁
+            $("input").focus();  // 就会有光标闪烁
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+        $(function() {
+            console.log($("div").css("width"));
+            $("div").css("width","300");  
+        })
+        $("div").css({
+            // 属性可以不加引号，加了也没事
+            width : 400,
+            height : 400,
+            backgroundColor : "red"  // 驼峰命名法，red这个值不是数字，必须加引号了
+        })
+    </script>
+</body>
+</html>

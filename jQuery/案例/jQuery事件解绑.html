@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <ul>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+    </ul>
+    <p>我是p</p>
+    <script>
+        $(function() {
+            $("div").on({
+                click: function() {
+                    console.log("我点击了");
+                },
+                mouseover: function() {
+                    console.log("鼠标经过了");
+                }
+            });
+            $("ul").on("click","li",function() {
+                console.log(11);
+            });
+            // 1、事件解绑  off
+            // $("div").off();  // 解绑了div上的所有事件
+            $("div").off("click");  // 解绑了div上的点击事件
+            $("ul").off("click","li");  // 解绑事件委托
+
+            // 2、one() 注册的事件只触发一次
+            $("p").one("click",function() {
+                alert(11);
+            })
+        })
+    </script>
+</body>
+</html>
