@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 物理像素比
+        console.log(window.devicePixelRatio);
+        //
+        // 触发load事件
+        // 1、a标签的超链接  2、F5或者刷新  3、前进后退
+        // 但是，火狐有个往返缓存，这个缓存保存着页面数据，还保存了DOM和js的状态，也就是将整个页面都保存在内存中
+        // 所以前进后退无法刷新页面，所以就不能再用load事件，而应该用pageshow事件
+        // 这个事件在页面显示时触发，无论页面是否来自缓存，在重新加载页面中，pageshow在load事件触发后触发，
+        // 根据事件对象中的persisted属性来判断是否是缓存中的页面出发的pageshow事件
+        window.addEventListener('pageshow',function() {
+            alert(11);
+        })
+        </script>
+        <a href="http://www.baidu.com">链接</a>
+</body>
+</html>

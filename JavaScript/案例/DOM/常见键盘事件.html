@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1、keyup 按键弹起的时候出发
+        document.addEventListener('keyup',function() {
+            console.log('弹起触发');
+        })
+        // 2、keydown 按键按下的时候触发
+        document.addEventListener('keydown',function() {
+            console.log('按下触发');
+        })
+        // 3、keypress 按键按下的时候触发
+        // 区别就是 keypress 不能识别功能键，比如ctrl和shift
+        document.addEventListener('keypress',function() {
+            console.log('按下触发');
+        })
+
+        // 执行顺序
+        // 这三个事件的执行顺序：keydown->keypress->keyup
+    </script>
+</body>
+</html>

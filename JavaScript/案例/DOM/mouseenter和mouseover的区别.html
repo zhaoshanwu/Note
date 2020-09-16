@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+    <script>
+        // 都是鼠标经过触发
+        var father = document.querySelector('.father');
+        var son = document.querySelector('.son');
+        father.addEventListener('mouseover',function() {
+            console.log(11);
+        })
+        // 两者的区别就是：
+        // mouseover 当鼠标经过自身盒子会触发，经过子盒子也会触发
+        // mouseenter 只会在经过自身盒子的时候触发
+        // 原因： mouseenter 不会冒泡
+    </script>
+</body>
+</html>

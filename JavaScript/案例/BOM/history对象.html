@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="forward">前进</button>
+    <button class="back">后退</button>
+    <button class="go2">前进2步</button>
+    <button class="go-2">后退2步</button>
+    <script>
+        var btn1 = document.querySelector('.forward');
+        var btn2 = document.querySelector('.back');
+        var btn3 = document.querySelector('.go2');
+        var btn4 = document.querySelector('.go-2');
+        btn1.addEventListener('click',function() {
+            history.forward(); // 前进
+        })
+        btn2.addEventListener('click',function() {
+            history.back(); // 前进
+        })
+        btn3.addEventListener('click',function() {
+            history.go(2); // 前进2步
+        })
+        btn4.addEventListener('click',function() {
+            history.go(-2); // 后退2步
+        })
+    </script>
+</body>
+</html>

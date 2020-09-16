@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+        // 获取元素
+        var div = document.querySelector('div');
+        // 注册事件
+        div.onclick = function() {
+            // div.style里面的属性采取驼峰命名法
+            // js修改的css属于行内样式，权重比较高
+            this.style.backgroundColor = 'blue';
+            this.style.width = '250px';
+        }
+    </script>
+</body>
+</html>

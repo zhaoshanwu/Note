@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .father {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            margin: 100px;
+        }
+        
+        .son {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            margin-left: 50px;
+        }
+
+        .w {
+            width: 200px;
+            height: 200px;
+            background-color: green;
+            margin: 0 auto 200px;
+            padding: 10px;
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+    <div class="w"></div>
+    <script>
+        // offset:偏移量
+        // element.offsetParent 返回作为该元素带有定位的父级元素，如果父级没有定位则返回body
+        // element.offsetTop 返回元素相对带有定位父元素上方的偏移
+        // element.offsetLeft 返回元素相对带有定位父元素左边框的偏移
+        // element.offsetWidth 返回自身包括padding、边框、内容区的宽度，返回数值不带单位
+        // element.offsetHeight 返回自身包括padding、边框、内容区的高度，返回数值不带单位
+        var father = document.querySelector('.father');
+        var son = document.querySelector('.son');
+        // 1、可以得到元素的偏移 位置 返回的是不带单位的数值
+        console.log(father.offsetTop);
+        console.log(father.offsetLeft);
+        // 以带有定位的父亲为准，如果父亲没有定位，则以body为准
+        console.log(son.offsetLeft);
+        var w = document.querySelector('.w');
+        // 2、可以得到元素的大小  宽度和高度
+        console.log(w.offsetWidth);
+        console.log(w.offsetHeight);
+        // 3、返回带有定位的父亲，否则返回body
+        console.log(son.offsetParent); // 返回有定位的父亲
+        console.log(son.parentNode);  // 返回最近一级的父亲，而且不管父亲是否有定位
+    </script>
+</body>
+</html>

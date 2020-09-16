@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+    <script>
+        var div = document.querySelector('div');
+        var timer = 5;
+        div.innerHTML = timer + '秒后跳转到百度页面';
+        timer--;
+        setInterval(function() {
+            if(timer == 0) {
+                location.href = 'http://www.baidu.com';
+            } else {
+                div.innerHTML = timer + '秒后跳转到百度页面';
+                timer--;
+            }
+        },1000)
+    </script>
+</body>
+</html>

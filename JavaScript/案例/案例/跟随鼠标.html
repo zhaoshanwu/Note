@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100px;
+            height: 100px;
+
+        }
+    </style>
+</head>
+<body>
+    <img src="../image/1.jpg" alt="">
+    <script>
+        var pic = document.querySelector('img');
+        document.addEventListener('mousemove',function(e) {
+            // mousemove 只要鼠标移动1px，就会触发这个事件
+            // 每次移动鼠标，都获取新的鼠标坐标，然后把这个坐标作为图片定位的top和left进行移动
+            var x = e.pageX;
+            var y = e.pageY;
+            // console.log(x);
+            // console.log(y);
+            // x和y是一个数值，而样式需要加单位px，所以需要另加px的单位
+            pic.style.left = x - 50 + 'px';
+            pic.style.top = y -50 + 'px';
+        })
+    </script>
+</body>
+</html>

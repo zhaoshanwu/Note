@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>123</li>
+    </ul>
+    <script>
+        // 1、创建节点（元素节点）
+        var li = document.createElement('li');
+        // 添加节点
+        // 2、node.appendChild(child) node是父级，child是子级
+        var ul = document.querySelector('ul');
+        ul.appendChild(li); // 放到最后面，又叫追加元素
+        // 3、node.insertBefore(child,指定元素) 放到指定元素前面
+        var lili = document.createElement('li');
+        ul.insertBefore(lili,ul.children[0]);
+        // 4、添加一个新的元素：1、创建元素  2、添加元素
+    </script>
+</body>
+</html>

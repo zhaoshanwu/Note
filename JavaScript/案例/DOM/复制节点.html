@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        var ul = document.querySelector('ul');
+        // node.cloneNode(); 
+        // 如果括号里是空或者false，就叫浅拷贝，只复制标签而不复制内容
+        // 当括号里是true时就是深度拷贝，复制标签以及内容
+        var lili = ul.children[0].cloneNode(true);
+        ul.appendChild(lili);
+    </script>
+</body>
+</html>

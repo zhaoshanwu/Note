@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 立即执行函数，不需要调用，能够自己执行的函数
+        function fn() {
+            console.log(1);
+        }
+        fn();
+        // 写法
+        // (function() {})()
+        // 或者
+        // (function(){}())
+
+        (function(a) {
+            console.log(a);
+        })(2);  // 这个可以看作调用函数，可以传参
+
+        (function(a,b) {
+            console.log(a+b);
+        }(2,3));
+        // 也可以加名字
+        (function sum(a,b) {
+            console.log(a+b);
+        }(2,5))
+
+        // 立即执行函数最大的作用就是 独立创建了一个作用域，内部变量都是局部变量，不会有命名冲突
+    </script>
+</body>
+</html>

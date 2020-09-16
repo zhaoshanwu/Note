@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="http://www.baidu.com">超链接</a>
+    <div>
+        上午好
+    </div>
+    <script>
+        // 根据系统不同时间来判断，所以需要用到日期内置对象
+        // 利用多分支语句来设置不同的超链接
+        // 需要一个超链接，根据时间修改超链接连接的网址
+        // 需要一个div，显示不同时间段的问候语
+        // 1、获取元素
+        var a = document.querySelector('a');
+        var div = document.querySelector('div');
+        // 2、得到当前的小时数
+        var date = new Date();
+        var h = date.getHours();
+        // 3、判断小时数来改变超链接
+        if(h < 12) {
+            a.href = 'http://www.baidu.com';
+            div.innerHTML = '上午好';
+        } else if(h < 18) {
+            a.href = 'http://www.hao123.com';
+            div.innerHTML = '下午好';
+        } else {
+            a.href = 'http://www.4399.com';
+            div.innerHTML = '晚上好';
+        }
+    </script>
+</body>
+</html>

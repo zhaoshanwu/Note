@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        利用DOM提供的方法获取元素逻辑性不强，较为繁琐
+        利用节点层级关系获取元素，逻辑性强，操作简单，但是兼容性稍差
+    -->
+    <!--
+        一般，节点至少有nodeType(节点类型)、nodeName(节点名称)和nodeValue(节点值)这三个基本属性
+        元素节点：nodeType为1
+        属性节点：nodeType为2
+        文本节点：nodeType为3
+    -->
+    <div>div</div>
+    <span>span</span>
+    <ul>
+        <li>li</li>
+        <li>li</li>
+        <li>li</li>
+        <li>li</li>
+    </ul>
+    <ol>
+        <li>li</li>
+        <li>li</li>
+        <li>li</li>
+        <li>li</li>
+    </ol>
+    <div class="box">
+        <span class="erweima">x</span>
+    </div>
+    <script>
+        // 父节点 parentNode
+        // DOM提供的方法获取
+        var erweima = document.querySelector('.erweima');
+        var box = docuemnt.querySelector('.box');
+        // 用节点获取
+        // 得到的是离元素最近的父级节点，找不到返回空
+        console.log(erweima.parentNode);
+
+        // 子节点
+        // DOM提供的方法获取
+        var ul = document.querySelector('ul');
+        var lis = ul.querySelectorAll('li');
+        // 用子节点获取 childNodes获取的子节点包括元素节点、文本节点等
+        console.log(ul.childNodes);
+        // 所以如果想要获取里面的晕阿速节点，需要专门进行处理，所以一般不用
+        // 用children 获取所有的子元素节点,是开发中常用的
+        console.log(ul.children);
+    </script>
+</body>
+</html>

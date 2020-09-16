@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="baidu">www.baidu.com</button>
+    <button id="hao123">www.hao123.com</button>
+    <a href="#" id="a">超链接</a>
+    <script>
+        // 获取元素
+        var baidu = document.getElementById('baidu');
+        var hao123 = document.getElementById('hao123');
+        var a = document.querySelector('#a');
+        // 注册事件
+        baidu.onclick = function() {
+            a.href = 'http://www.baidu.com';
+        }
+        hao123.onclick = function() {
+            a.href = 'http://www.hao123.com';
+        }
+    </script>
+</body>
+</html>

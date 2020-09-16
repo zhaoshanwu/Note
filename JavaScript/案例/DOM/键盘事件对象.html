@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        document.addEventListener('keyup',function(e) {
+            console.log(e.key); // 返回按下的键，但有时候不支持
+            console.log(e.keyCode);// 返回按下键的ASCII码值
+            
+        })
+        // keyup和keydown事件不区分字母大小写，a和A得到的码值都是65
+        // 所以一般用keypress
+        document.addEventListener('keypress',function(e) {
+            console.log(e.keyCode);
+        })
+    </script>
+</body>
+</html>
