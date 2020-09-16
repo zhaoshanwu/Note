@@ -1,0 +1,53 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+p,
+span {
+    height: 34px;
+    line-height: 34px;
+}
+.function {
+    text-align:center;
+    background-color: blue;
+}
+
+.option {
+    text-align: center;
+}
+
+.option li {
+    /* height: 30px; */
+    margin: 10px 0px 10px 0px;
+    border-radius: 5px;
+    line-height: 30px;
+    background-color: #a1b2b2;
+}
+
+.content {
+    height: 700px;
+    background-color: pink;
+}
+
+.operation {
+    height: 150px;
+    background-color:cadetblue;
+}
+
+.theme {
+    height: 33px;
+    line-height: 33px;
+}
+
+.show {
+    width: 80%;
+    height: 550px;
+    margin: 0px auto;
+    background-color: chartreuse;
+}
+
+th,
+td{
+    text-align: center;
+}
