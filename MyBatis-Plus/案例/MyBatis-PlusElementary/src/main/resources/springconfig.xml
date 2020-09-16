@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- 数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${driver}"/>
+        <property name="jdbcUrl" value="${url}"/>
+        <property name="user" value="${name}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+    <!-- 事务管理器 -->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 基于注解的事务管理器 -->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
+
+    <!-- 配置Mybatis自带的SqlSessionFactoryBean -->
+<!--    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="dataSource"/>-->
+<!--        <property name="configLocation" value="classpath:SqlMapConfig.xml"/>-->
+<!--        <property name="typeAliasesPackage" value="com.sw.entity"/>-->
+<!--    </bean>-->
+    <!--
+        MyBatis提供的是：org.mybatis.spring.SqlSessionFactoryBean
+        MyBatis-Plus提供的是：com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean
+    -->
+    <!-- 配置Mybatis-Plus自带的SqlSessionFactoryBean -->
+    <bean id="sqlSessionFactoryBean" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+        <property name="typeAliasesPackage" value="com.sw.entity"/>
+    </bean>
+
+    <!-- 配置mybatis扫描mapper接口的路径 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.sw.dao"/>
+    </bean>
+</beans>
